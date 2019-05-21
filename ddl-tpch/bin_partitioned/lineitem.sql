@@ -3,7 +3,7 @@ use ${DB};
 
 drop table if exists lineitem;
 
-create table lineitem 
+create external table lineitem
 (L_ORDERKEY BIGINT,
  L_PARTKEY BIGINT,
  L_SUPPKEY BIGINT,
@@ -21,6 +21,7 @@ create table lineitem
  L_COMMENT STRING)
  partitioned by (L_SHIPDATE STRING)
 stored as ${FILE}
+location '${LOCATION}/partitioned/lineitem'
 ;
 
 ALTER TABLE lineitem SET TBLPROPERTIES('orc.bloom.filter.columns'='*','orc.compress'='ZLIB');

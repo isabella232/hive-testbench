@@ -3,6 +3,7 @@ use ${DB};
 
 drop table if exists warehouse;
 
-create table warehouse
+create external table warehouse
 stored as ${FILE}
+location '${LOCATION}/partitioned/warehouse'
 as select * from ${SOURCE}.warehouse;

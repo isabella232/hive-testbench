@@ -1,3 +1,5 @@
+> NOTE: This is a fork of https://github.com/hortonworks/hive-testbench to create tables on S3 compatible object storage
+
 hive-testbench
 ==============
 
@@ -47,15 +49,15 @@ All of these steps should be carried out on your Hadoop cluster.
 
   Some examples:
 
-  Build 1 TB of TPC-DS data: ```./tpcds-setup.sh 1000```
+  Build 1 TB of TPC-DS data: ```./tpcds-setup.sh 1000 s3a://testbucket/tpcds_1000```
 
-  Build 1 TB of TPC-H data: ```./tpch-setup.sh 1000```
+  Build 1 TB of TPC-H data: ```./tpch-setup.sh 1000 s3a://testbucket/tpch_1000```
 
-  Build 100 TB of TPC-DS data: ```./tpcds-setup.sh 100000```
+  Build 100 TB of TPC-DS data: ```./tpcds-setup.sh 100000 s3a://testbucket/tpcds_100000```
 
-  Build 30 TB of text formatted TPC-DS data: ```FORMAT=textfile ./tpcds-setup 30000```
+  Build 30 TB of text formatted TPC-DS data: ```FORMAT=textfile ./tpcds-setup.sh 30000 s3a://testbucket/tpcds_30000```
 
-  Build 30 TB of RCFile formatted TPC-DS data: ```FORMAT=rcfile ./tpcds-setup 30000```
+  Build 30 TB of RCFile formatted TPC-DS data: ```FORMAT=rcfile ./tpcds-setup.sh 30000 s3a://testbucket/tpcds_30000```
   
   Also check other parameters in setup scripts important one is BUCKET_DATA.
 

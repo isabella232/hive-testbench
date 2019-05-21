@@ -3,7 +3,7 @@ use ${DB};
 
 drop table if exists orders;
 
-create table orders (O_ORDERKEY BIGINT,
+create external table orders (O_ORDERKEY BIGINT,
  O_CUSTKEY BIGINT,
  O_ORDERSTATUS STRING,
  O_TOTALPRICE DOUBLE,
@@ -13,6 +13,7 @@ create table orders (O_ORDERKEY BIGINT,
  O_COMMENT STRING)
  partitioned by (O_ORDERDATE STRING)
 stored as ${FILE}
+location '${LOCATION}/partitioned/orders'
 ;
 
 ALTER TABLE orders SET TBLPROPERTIES('orc.bloom.filter.columns'='*','orc.compress'='ZLIB');

@@ -3,7 +3,7 @@ use ${DB};
 
 drop table if exists store_sales;
 
-create table store_sales
+create external table store_sales
 (
       ss_sold_time_sk bigint
 ,     ss_item_sk bigint
@@ -29,7 +29,10 @@ create table store_sales
 ,     ss_net_profit decimal(7,2)
 )
 partitioned by (ss_sold_date_sk bigint)
-stored as ${FILE};
+stored as ${FILE}
+location '${LOCATION}/partitioned/store_sales'
+tblproperties('DO_NOT_UPDATE_STATS'='TRUE')
+;
 
 from ${SOURCE}.store_sales ss
 insert overwrite table store_sales partition (ss_sold_date_sk) 

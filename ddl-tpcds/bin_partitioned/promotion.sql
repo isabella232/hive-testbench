@@ -3,6 +3,7 @@ use ${DB};
 
 drop table if exists promotion;
 
-create table promotion
+create external table promotion
 stored as ${FILE}
+location '${LOCATION}/partitioned/promotion'
 as select * from ${SOURCE}.promotion;

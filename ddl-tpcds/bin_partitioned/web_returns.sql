@@ -3,7 +3,7 @@ use ${DB};
 
 drop table if exists web_returns;
 
-create table web_returns
+create external table web_returns
 (
       wr_returned_time_sk bigint
 ,     wr_item_sk bigint
@@ -30,7 +30,10 @@ create table web_returns
 ,     wr_net_loss decimal(7,2)
 )
 partitioned by (wr_returned_date_sk       bigint)
-stored as ${FILE};
+stored as ${FILE}
+location '${LOCATION}/partitioned/web_returns'
+tblproperties('DO_NOT_UPDATE_STATS'='TRUE')
+;
 
 from ${SOURCE}.web_returns wr
 insert overwrite table web_returns partition (wr_returned_date_sk)

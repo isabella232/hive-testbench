@@ -3,8 +3,9 @@ use ${DB};
 
 drop table if exists customer;
 
-create table customer
+create external table customer
 stored as ${FILE}
+location '${LOCATION}/partitioned/customer'
 as select * from ${SOURCE}.customer
 CLUSTER BY c_customer_sk
 ;

@@ -3,7 +3,7 @@ use ${DB};
 
 drop table if exists web_sales;
 
-create table web_sales
+create external table web_sales
 (
     ws_sold_time_sk           bigint,
     ws_ship_date_sk           bigint,
@@ -40,7 +40,10 @@ create table web_sales
     ws_net_profit             double
 )
 partitioned by (ws_sold_date_sk           bigint)
-stored as ${FILE};
+stored as ${FILE}
+location '${LOCATION}/partitioned/web_sales'
+tblproperties('DO_NOT_UPDATE_STATS'='TRUE')
+;
 
 from ${SOURCE}.web_sales ws
 insert overwrite table web_sales partition (ws_sold_date_sk) 

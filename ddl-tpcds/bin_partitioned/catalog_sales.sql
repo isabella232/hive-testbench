@@ -3,7 +3,7 @@ use ${DB};
 
 drop table if exists catalog_sales;
 
-create table catalog_sales
+create external table catalog_sales
 (
       cs_sold_time_sk bigint
 ,     cs_ship_date_sk bigint
@@ -40,7 +40,10 @@ create table catalog_sales
 ,     cs_net_profit decimal(7,2)
 )
 partitioned by (cs_sold_date_sk bigint)
-stored as ${FILE};
+stored as ${FILE}
+location '${LOCATION}/partitioned/catalog_sales'
+tblproperties('DO_NOT_UPDATE_STATS'='TRUE')
+;
 
 from ${SOURCE}.catalog_sales cs
 insert overwrite table catalog_sales partition (cs_sold_date_sk) 

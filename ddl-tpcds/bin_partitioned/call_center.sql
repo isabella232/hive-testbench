@@ -3,6 +3,7 @@ use ${DB};
 
 drop table if exists call_center;
 
-create table call_center
+create external table call_center
 stored as ${FILE}
+location '${LOCATION}/partitioned/call_center'
 as select * from ${SOURCE}.call_center;

@@ -3,7 +3,7 @@ use ${DB};
 
 drop table if exists catalog_returns;
 
-create table catalog_returns
+create external table catalog_returns
 (
       cr_returned_time_sk bigint
 ,     cr_item_sk bigint
@@ -33,7 +33,10 @@ create table catalog_returns
 ,     cr_net_loss decimal(7,2)
 )
 partitioned by (cr_returned_date_sk bigint)
-stored as ${FILE};
+stored as ${FILE}
+location '${LOCATION}/partitioned/catalog_returns'
+tblproperties('DO_NOT_UPDATE_STATS'='TRUE')
+;
 
 from ${SOURCE}.catalog_returns cr
 insert overwrite table catalog_returns partition(cr_returned_date_sk) 

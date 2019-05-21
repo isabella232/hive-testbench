@@ -3,8 +3,9 @@ use ${DB};
 
 drop table if exists part;
 
-create table part
+create external table part
 stored as ${FILE}
+location '${LOCATION}/partitioned/part'
 TBLPROPERTIES('orc.bloom.filter.columns'='*','orc.compress'='ZLIB')
 as select * from ${SOURCE}.part
 cluster by p_brand

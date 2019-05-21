@@ -3,7 +3,7 @@ use ${DB};
 
 drop table if exists store_returns;
 
-create table store_returns
+create external table store_returns
 (
       sr_return_time_sk bigint
 ,     sr_item_sk bigint
@@ -26,7 +26,10 @@ create table store_returns
 ,     sr_net_loss decimal(7,2)
 )
 partitioned by (sr_returned_date_sk bigint)
-stored as ${FILE};
+stored as ${FILE}
+location '${LOCATION}/partitioned/store_returns'
+tblproperties('DO_NOT_UPDATE_STATS'='TRUE')
+;
 
 from ${SOURCE}.store_returns sr
 insert overwrite table store_returns partition (sr_returned_date_sk) 
