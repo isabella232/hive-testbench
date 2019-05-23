@@ -85,7 +85,8 @@ do
 	    -d DB=${DATABASE} \
 	    -d SOURCE=tpch_text_${SCALE} -d BUCKETS=${BUCKETS} \
             -d SCALE=${SCALE} -d REDUCERS=${REDUCERS} \
-	    -d FILE=orc"
+	    -d FILE=orc \
+            -d LOCATION=${DIR}/partitioned/${SCALE}"
 	runcommand "$COMMAND"
 	if [ $? -ne 0 ]; then
 		echo "Command failed, try 'export DEBUG_SCRIPT=ON' and re-running"
